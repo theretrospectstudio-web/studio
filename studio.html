@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Retrospect Studio — Luxury Car Restoration, Thrissur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --deep: #0d0d0d;
+    --surface: #111111;
+    --surface2: #161616;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.12);
+    --purple: #8B7ECC;
+    --purple-light: #a99fe0;
+    --purple-dim: rgba(139,126,204,0.15);
+    --mint: #3ECFA8;
+    --mint-dim: rgba(62,207,168,0.12);
+    --gold: #C8A96E;
+    --gold-dim: rgba(200,169,110,0.12);
+    --white: #f5f5f0;
+    --muted: rgba(245,245,240,0.45);
+    --muted2: rgba(245,245,240,0.25);
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: var(--mint);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--purple);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.12s ease, width 0.3s ease, height 0.3s ease;
+  }
+  .cursor.hover { width: 6px; height: 6px; background: var(--gold); }
+  .cursor-ring.hover { width: 48px; height: 48px; border-color: var(--gold); }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 24px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s ease, backdrop-filter 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(8,8,8,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 60px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 42px;
+    height: 42px;
+  }
+  .nav-logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .nav-logo-text .the { font-family: var(--font-body); font-size: 9px; letter-spacing: 0.3em; color: var(--muted); font-weight: 400; text-transform: uppercase; }
+  .nav-logo-text .name { font-family: var(--font-display); font-size: 19px; letter-spacing: 0.1em; color: var(--white); }
+  .nav-logo-text .studio { font-family: var(--font-body); font-size: 8px; letter-spacing: 0.35em; color: var(--purple-light); font-weight: 400; text-transform: uppercase; margin-top: 1px; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--mint);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black) !important;
+    background: var(--mint);
+    padding: 10px 24px;
+    border-radius: 2px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s !important;
+  }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: var(--purple-light) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(139,126,204,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 70%, rgba(62,207,168,0.05) 0%, transparent 50%),
+      linear-gradient(180deg, #080808 0%, #0a0a0a 100%);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+  }
+
+  /* Animated rings */
+  .hero-rings {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    animation: ringPulse 6s ease-in-out infinite;
+  }
+  .ring:nth-child(1) { width: 300px; height: 300px; border-color: rgba(139,126,204,0.12); animation-delay: 0s; }
+  .ring:nth-child(2) { width: 500px; height: 500px; border-color: rgba(139,126,204,0.07); animation-delay: 1s; }
+  .ring:nth-child(3) { width: 700px; height: 700px; border-color: rgba(62,207,168,0.05); animation-delay: 2s; }
+  .ring:nth-child(4) { width: 900px; height: 900px; border-color: rgba(139,126,204,0.03); animation-delay: 3s; }
+  @keyframes ringPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.03); opacity: 0.6; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 20px;
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--mint);
+    font-weight: 500;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+  .hero-logo-mark {
+    margin: 0 auto 32px;
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.5s;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(72px, 12vw, 160px);
+    letter-spacing: 0.04em;
+    line-height: 0.9;
+    color: var(--white);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.7s;
+  }
+  .hero-title .accent { color: var(--purple-light); }
+  .hero-subtitle {
+    font-family: var(--font-serif);
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 20px;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.9s;
+  }
+  .hero-location {
+    margin-top: 14px;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    font-weight: 400;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1.0s;
+  }
+  .hero-ctas {
+    margin-top: 48px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1.1s;
+  }
+  .btn-primary {
+    font-family: var(--font-body);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--black);
+    background: var(--mint);
+    padding: 16px 36px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-primary:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-outline {
+    font-family: var(--font-body);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--white);
+    background: transparent;
+    border: 1px solid var(--border2);
+    padding: 16px 36px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: border-color 0.3s, background 0.3s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-outline:hover { border-color: var(--purple); background: var(--purple-dim); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1.4s;
+  }
+  .hero-scroll span { font-size: 8px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted2); }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--purple), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.6); opacity: 0.4; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 30s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 0 30px;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--mint); flex-shrink: 0; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  section { position: relative; }
+  .section-inner { max-width: 1300px; margin: 0 auto; padding: 0 60px; }
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--mint);
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--mint);
+  }
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(44px, 6vw, 80px);
+    letter-spacing: 0.03em;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .section-sub {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  /* ABOUT */
+  .about { padding: 130px 0; background: var(--deep); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-visual-box {
+    aspect-ratio: 4/5;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-visual-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 80% at 50% 50%, rgba(139,126,204,0.08) 0%, transparent 70%);
+  }
+  .about-visual-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .about-visual-inner svg {
+    width: 120px;
+    height: 120px;
+    opacity: 0.3;
+  }
+  .about-corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-color: var(--purple);
+    border-style: solid;
+  }
+  .about-corner-tl { top: 16px; left: 16px; border-width: 1px 0 0 1px; }
+  .about-corner-tr { top: 16px; right: 16px; border-width: 1px 1px 0 0; }
+  .about-corner-bl { bottom: 16px; left: 16px; border-width: 0 0 1px 1px; }
+  .about-corner-br { bottom: 16px; right: 16px; border-width: 0 1px 1px 0; }
+  .about-badge {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    padding: 20px 24px;
+    border-radius: 2px;
+  }
+  .about-badge .num {
+    font-family: var(--font-display);
+    font-size: 48px;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+  .about-badge .lbl {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-top: 4px;
+    display: block;
+  }
+  .about-stats {
+    display: flex;
+    gap: 0;
+    margin-top: 50px;
+    border: 1px solid var(--border);
+  }
+  .about-stat {
+    flex: 1;
+    padding: 28px 24px;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .about-stat:last-child { border-right: none; }
+  .about-stat .n {
+    font-family: var(--font-display);
+    font-size: 38px;
+    color: var(--purple-light);
+    line-height: 1;
+    display: block;
+  }
+  .about-stat .l {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* SERVICES */
+  .services { padding: 130px 0; background: var(--black); }
+  .services-header { margin-bottom: 80px; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .service-card {
+    background: var(--black);
+    padding: 48px 40px;
+    transition: background 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--mint));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover { background: var(--surface); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-num {
+    font-family: var(--font-display);
+    font-size: 52px;
+    color: var(--border2);
+    line-height: 1;
+    margin-bottom: 24px;
+    transition: color 0.3s;
+  }
+  .service-card:hover .service-num { color: rgba(139,126,204,0.3); }
+  .service-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 20px;
+  }
+  .service-name {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+  .service-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--muted);
+    font-weight: 300;
+  }
+  .service-link {
+    margin-top: 28px;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mint);
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .service-card:hover .service-link { opacity: 1; }
+  .service-link::after {
+    content: '→';
+    transition: transform 0.3s;
+  }
+  .service-link:hover::after { transform: translateX(6px); }
+
+  /* PROCESS */
+  .process { padding: 130px 0; background: var(--deep); overflow: hidden; }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-top: 80px;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 52px;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border2), var(--purple), var(--mint), var(--border2), transparent);
+    z-index: 0;
+  }
+  .process-step {
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .step-circle {
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    background: var(--deep);
+    position: relative;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .step-circle::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    background: linear-gradient(var(--deep), var(--deep)) padding-box,
+                linear-gradient(135deg, var(--purple), var(--mint)) border-box;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .process-step:hover .step-circle::after { opacity: 1; }
+  .step-circle svg { width: 32px; height: 32px; color: var(--purple-light); }
+  .step-num {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--mint);
+    color: var(--black);
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .step-desc { font-size: 12px; line-height: 1.7; color: var(--muted); font-weight: 300; }
+
+  /* GALLERY TEASER */
+  .gallery { padding: 130px 0; background: var(--black); }
+  .gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 280px 280px;
+    gap: 2px;
+  }
+  .gallery-item {
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .gallery-item:first-child { grid-row: span 2; }
+  .gallery-item-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.3s;
+  }
+  .gallery-item:hover .gallery-item-inner { background: rgba(139,126,204,0.08); }
+  .gallery-item-label {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    font-weight: 500;
+  }
+  .gallery-icon { color: var(--border2); }
+  .gallery-item:hover .gallery-icon { color: var(--purple); }
+  .gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    background: linear-gradient(to top, rgba(8,8,8,0.9), transparent);
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+  }
+  .gallery-item:hover .gallery-overlay { transform: translateY(0); }
+  .gallery-overlay-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 0.05em;
+    color: var(--white);
+  }
+  .gallery-overlay-sub { font-size: 11px; color: var(--mint); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 4px; }
+
+  /* Car silhouette illustration */
+  .car-silhouette {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.15;
+    transition: opacity 0.3s;
+  }
+  .gallery-item:hover .car-silhouette { opacity: 0.25; }
+
+  /* WHY US */
+  .why { padding: 130px 0; background: var(--surface); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .why-items { display: flex; flex-direction: column; gap: 0; }
+  .why-item {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .why-item:first-child { border-top: 1px solid var(--border); }
+  .why-num {
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: var(--purple);
+    flex-shrink: 0;
+    padding-top: 2px;
+    letter-spacing: 0.1em;
+  }
+  .why-content h4 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .why-content p { font-size: 13px; line-height: 1.8; color: var(--muted); font-weight: 300; }
+  .why-visual {
+    position: relative;
+  }
+  .why-visual-main {
+    background: var(--black);
+    border: 1px solid var(--border);
+    aspect-ratio: 1;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-visual-main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(62,207,168,0.06) 0%, transparent 70%);
+  }
+  .certbadge {
+    position: absolute;
+    top: -16px;
+    left: -16px;
+    background: var(--gold);
+    color: var(--black);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials { padding: 130px 0; background: var(--deep); }
+  .testimonials-header { text-align: center; margin-bottom: 70px; }
+  .testimonials-header .section-label { justify-content: center; }
+  .testimonials-header .section-label::before { display: none; }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .testimonial-card {
+    background: var(--deep);
+    padding: 44px 36px;
+    transition: background 0.3s;
+  }
+  .testimonial-card:hover { background: var(--surface); }
+  .testimonial-quote {
+    font-family: var(--font-display);
+    font-size: 60px;
+    color: var(--purple);
+    line-height: 0.6;
+    margin-bottom: 20px;
+    opacity: 0.4;
+  }
+  .testimonial-text {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .author-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--purple-dim);
+    border: 1px solid var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--purple-light);
+    flex-shrink: 0;
+  }
+  .author-name { font-size: 13px; font-weight: 500; color: var(--white); }
+  .author-detail { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-top: 2px; }
+  .testimonial-car { font-size: 10px; letter-spacing: 0.2em; color: var(--mint); text-transform: uppercase; font-weight: 500; margin-top: 4px; }
+
+  /* BRANDS */
+  .brands { padding: 80px 0; background: var(--black); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .brands-label {
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 40px;
+  }
+  .brands-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .brand-item {
+    padding: 20px 40px;
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 0.15em;
+    color: var(--muted2);
+    transition: color 0.3s;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .brand-item:last-child { border-right: none; }
+  .brand-item:hover { color: var(--muted); }
+
+  /* CONTACT */
+  .contact { padding: 130px 0; background: var(--black); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+  .contact-info { }
+  .contact-detail {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 32px;
+  }
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border2);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--mint);
+  }
+  .contact-detail-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted2); margin-bottom: 6px; }
+  .contact-detail-value { font-size: 14px; color: var(--white); font-weight: 300; line-height: 1.6; }
+  .contact-form { }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .form-group label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted2); font-weight: 500; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 14px 18px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 300;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--purple); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-group select option { background: var(--surface2); color: var(--white); }
+  .form-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--purple);
+    color: var(--white);
+    border: none;
+    font-family: var(--font-body);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    margin-top: 8px;
+  }
+  .form-submit:hover { background: var(--mint); color: var(--black); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 60px 0 30px;
+  }
+  .footer-inner { max-width: 1300px; margin: 0 auto; padding: 0 60px; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .footer-tagline { font-size: 12px; line-height: 1.8; color: var(--muted); font-weight: 300; max-width: 240px; }
+  .footer-col h5 {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--mint);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col ul li a {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: 300;
+  }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy { font-size: 11px; color: var(--muted2); font-weight: 300; }
+  .footer-social { display: flex; gap: 16px; }
+  .footer-social a {
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .footer-social a:hover { border-color: var(--purple); color: var(--purple-light); }
+
+  /* CTA BANNER */
+  .cta-banner {
+    padding: 120px 0;
+    background: var(--deep);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(139,126,204,0.1) 0%, transparent 70%);
+  }
+  .cta-banner-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--mint);
+    font-weight: 500;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .cta-banner-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 8vw, 100px);
+    letter-spacing: 0.03em;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .cta-banner-title .accent { color: var(--gold); }
+  .cta-banner-sub {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .cta-banner .btns { display: flex; gap: 20px; justify-content: center; position: relative; }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    nav { padding: 20px 30px; }
+    nav.scrolled { padding: 14px 30px; }
+    .section-inner { padding: 0 30px; }
+    .about-grid { grid-template-columns: 1fr; gap: 60px; }
+    .why-grid { grid-template-columns: 1fr; gap: 60px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 60px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .process-steps::before { display: none; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item:first-child { grid-row: span 1; }
+    .nav-links { display: none; }
+    .brands-grid { flex-wrap: wrap; }
+    .brand-item { border: none; }
+  }
+  @media (max-width: 640px) {
+    .footer-top { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <svg class="nav-logo-icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="30" cy="30" r="26" stroke="#8B7ECC" stroke-width="1"/>
+      <ellipse cx="30" cy="30" rx="22" ry="10" stroke="#8B7ECC" stroke-width="1"/>
+      <circle cx="30" cy="30" r="8" stroke="#3ECFA8" stroke-width="1"/>
+      <circle cx="30" cy="30" r="3" fill="#3ECFA8"/>
+      <line x1="30" y1="4" x2="30" y2="10" stroke="#8B7ECC" stroke-width="1"/>
+      <line x1="30" y1="50" x2="30" y2="56" stroke="#8B7ECC" stroke-width="1"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="the">The</span>
+      <span class="name">RETROSPECT</span>
+      <span class="studio">Studio</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact" class="nav-cta">Book Consultation</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-rings">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Luxury Car Specialists — Thrissur, Kerala</div>
+    <div class="hero-logo-mark">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="44" stroke="#8B7ECC" stroke-width="1.5"/>
+        <ellipse cx="50" cy="50" rx="36" ry="16" stroke="#8B7ECC" stroke-width="1.2"/>
+        <circle cx="50" cy="50" r="14" stroke="#3ECFA8" stroke-width="1.5"/>
+        <circle cx="50" cy="50" r="6" fill="#3ECFA8"/>
+        <circle cx="50" cy="50" r="10" stroke="#3ECFA8" stroke-width="0.8" stroke-dasharray="2 3"/>
+        <line x1="50" y1="6" x2="50" y2="18" stroke="#8B7ECC" stroke-width="1.2"/>
+        <line x1="50" y1="82" x2="50" y2="94" stroke="#8B7ECC" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <h1 class="hero-title">THE<br><span class="accent">RETROSPECT</span><br>STUDIO</h1>
+    <p class="hero-subtitle">Where Legends Return to Life</p>
+    <p class="hero-location">⬡ Thrissur, Kerala, India</p>
+    <div class="hero-ctas">
+      <a href="#services" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Explore Services
+      </a>
+      <a href="#contact" class="btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+        Book Consultation
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <div class="marquee-item"><div class="marquee-dot"></div>Luxury Restoration</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Custom Fabrication</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Engine Rebuilds</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Paint & Bodywork</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Interior Refinishing</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Modification</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Spare Parts</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Thrissur Kerala</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Luxury Restoration</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Custom Fabrication</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Engine Rebuilds</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Paint & Bodywork</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Interior Refinishing</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Modification</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Spare Parts</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>Thrissur Kerala</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-visual-box">
+          <div class="about-corner about-corner-tl"></div>
+          <div class="about-corner about-corner-tr"></div>
+          <div class="about-corner about-corner-bl"></div>
+          <div class="about-corner about-corner-br"></div>
+          <div class="about-visual-inner">
+            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="60" cy="60" r="52" stroke="#8B7ECC" stroke-width="1.5"/>
+              <ellipse cx="60" cy="60" rx="42" ry="19" stroke="#8B7ECC" stroke-width="1.2"/>
+              <circle cx="60" cy="60" r="16" stroke="#3ECFA8" stroke-width="1.5"/>
+              <circle cx="60" cy="60" r="7" fill="#3ECFA8"/>
+              <line x1="60" y1="8" x2="60" y2="22" stroke="#8B7ECC" stroke-width="1.2"/>
+              <line x1="60" y1="98" x2="60" y2="112" stroke="#8B7ECC" stroke-width="1.2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="about-badge">
+          <span class="num">10+</span>
+          <span class="lbl">Years of Excellence</span>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <div class="section-label">Our Story</div>
+        <h2 class="section-heading">PASSION<br>MEETS<br>PRECISION</h2>
+        <p class="section-sub">Born in the heart of Thrissur, The Retrospect Studio was founded on a single belief — that every classic deserves a second life, and every luxury car deserves nothing less than perfection.</p>
+        <p style="margin-top:24px; font-size:13px; line-height:1.9; color:var(--muted); font-weight:300;">We are Kerala's premier destination for luxury car restoration and customization. Our craftsmen combine old-world artisanship with modern precision engineering, breathing new life into machines that were built to endure. From full frame-off restorations to bespoke modifications, every project that passes through our doors is treated as a work of art.</p>
+        <div class="about-stats">
+          <div class="about-stat">
+            <span class="n">200+</span>
+            <span class="l">Cars Restored</span>
+          </div>
+          <div class="about-stat">
+            <span class="n">50+</span>
+            <span class="l">Brands Served</span>
+          </div>
+          <div class="about-stat">
+            <span class="n">100%</span>
+            <span class="l">Satisfaction</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="services-header reveal">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-heading">OUR<br>SERVICES</h2>
+      <p class="section-sub">End-to-end luxury automotive care — from full restoration to precision modification.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="42" height="42" rx="2" stroke="#8B7ECC" stroke-width="1"/>
+          <path d="M8 28 C8 28 12 20 22 20 C32 20 36 28 36 28" stroke="#3ECFA8" stroke-width="1.5"/>
+          <circle cx="14" cy="28" r="4" stroke="#8B7ECC" stroke-width="1.2"/>
+          <circle cx="30" cy="28" r="4" stroke="#8B7ECC" stroke-width="1.2"/>
+          <path d="M14 18 L18 14 L26 14 L32 18" stroke="#8B7ECC" stroke-width="1"/>
+        </svg>
+        <div class="service-name">RESTORATION</div>
+        <p class="service-desc">Full frame-off restorations bringing classics back to factory-fresh or better condition. Every nut, bolt, and panel returned to its original glory.</p>
+        <a href="#contact" class="service-link">Enquire Now</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none">
+          <rect x="1" y="1" width="42" height="42" rx="2" stroke="#8B7ECC" stroke-width="1"/>
+          <path d="M22 8 L36 22 L22 36 L8 22 Z" stroke="#3ECFA8" stroke-width="1.2"/>
+          <circle cx="22" cy="22" r="6" stroke="#8B7ECC" stroke-width="1.2"/>
+          <line x1="22" y1="8" x2="22" y2="16" stroke="#8B7ECC" stroke-width="1"/>
+          <line x1="22" y1="28" x2="22" y2="36" stroke="#8B7ECC" stroke-width="1"/>
+          <line x1="8" y1="22" x2="16" y2="22" stroke="#8B7ECC" stroke-width="1"/>
+          <line x1="28" y1="22" x2="36" y2="22" stroke="#8B7ECC" stroke-width="1"/>
+        </svg>
+        <div class="service-name">CUSTOMIZATION</div>
+        <p class="service-desc">Bespoke aesthetic and mechanical customization — paint, upholstery, bodywork, and more — tailored entirely to your vision and personality.</p>
+        <a href="#contact" class="service-link">Enquire Now</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none">
+          <rect x="1" y="1" width="42" height="42" rx="2" stroke="#8B7ECC" stroke-width="1"/>
+          <circle cx="22" cy="22" r="10" stroke="#3ECFA8" stroke-width="1.2"/>
+          <path d="M22 12 L24 18 L30 18 L25 22 L27 28 L22 24 L17 28 L19 22 L14 18 L20 18 Z" stroke="#8B7ECC" stroke-width="1" fill="none"/>
+        </svg>
+        <div class="service-name">MODIFICATION</div>
+        <p class="service-desc">Performance and aesthetic modifications for the discerning enthusiast — suspension upgrades, engine tuning, body kits, and aerodynamics.</p>
+        <a href="#contact" class="service-link">Enquire Now</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none">
+          <rect x="1" y="1" width="42" height="42" rx="2" stroke="#8B7ECC" stroke-width="1"/>
+          <path d="M12 32 L12 16 L22 10 L32 16 L32 32" stroke="#3ECFA8" stroke-width="1.2"/>
+          <rect x="18" y="24" width="8" height="8" stroke="#8B7ECC" stroke-width="1"/>
+          <line x1="22" y1="10" x2="22" y2="16" stroke="#8B7ECC" stroke-width="1"/>
+        </svg>
+        <div class="service-name">SERVICING</div>
+        <p class="service-desc">Scheduled maintenance and comprehensive servicing for luxury vehicles. Keeping your prized possession in peak mechanical condition, always.</p>
+        <a href="#contact" class="service-link">Enquire Now</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none">
+          <rect x="1" y="1" width="42" height="42" rx="2" stroke="#8B7ECC" stroke-width="1"/>
+          <rect x="10" y="14" width="10" height="16" stroke="#3ECFA8" stroke-width="1.2" rx="1"/>
+          <rect x="24" y="18" width="10" height="12" stroke="#8B7ECC" stroke-width="1.2" rx="1"/>
+          <line x1="20" y1="22" x2="24" y2="22" stroke="#8B7ECC" stroke-width="1"/>
+        </svg>
+        <div class="service-name">SPARE PARTS</div>
+        <p class="service-desc">Genuine OEM and premium aftermarket parts for rare and luxury vehicles. We source globally to find exactly what your car needs.</p>
+        <a href="#contact" class="service-link">Enquire Now</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none">
+          <rect x="1" y="1" width="42" height="42" rx="2" stroke="#8B7ECC" stroke-width="1"/>
+          <circle cx="22" cy="22" r="12" stroke="#3ECFA8" stroke-width="1.2"/>
+          <path d="M18 22 L21 25 L27 19" stroke="#3ECFA8" stroke-width="1.5"/>
+          <circle cx="22" cy="22" r="6" stroke="#8B7ECC" stroke-width="0.8" stroke-dasharray="2 2"/>
+        </svg>
+        <div class="service-name">DETAILING</div>
+        <p class="service-desc">Concours-level detailing, ceramic coating, and paint protection film — presenting your vehicle in its absolute finest form, inside and out.</p>
+        <a href="#contact" class="service-link">Enquire Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-heading">OUR<br>PROCESS</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-circle">
+          <span class="step-num">1</span>
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M16 4 C10 4 4 9 4 16 C4 23 10 28 16 28 C22 28 28 23 28 16"/>
+            <path d="M20 8 L28 4 L24 12"/>
+          </svg>
+        </div>
+        <div class="step-title">CONSULTATION</div>
+        <p class="step-desc">Discuss your vision, goals and timeline with our specialists.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-circle">
+          <span class="step-num">2</span>
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="16" cy="16" r="10"/>
+            <path d="M16 10 L16 16 L21 21"/>
+            <circle cx="16" cy="16" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="step-title">ASSESSMENT</div>
+        <p class="step-desc">Full diagnostic and inspection to understand every detail of your vehicle.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-circle">
+          <span class="step-num">3</span>
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="4" y="8" width="24" height="16" rx="2"/>
+            <line x1="4" y1="14" x2="28" y2="14"/>
+            <line x1="10" y1="19" x2="16" y2="19"/>
+            <line x1="20" y1="19" x2="24" y2="19"/>
+          </svg>
+        </div>
+        <div class="step-title">PROPOSAL</div>
+        <p class="step-desc">Detailed plan, timeline, and transparent pricing before we begin.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-circle">
+          <span class="step-num">4</span>
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M6 28 L6 14 L16 8 L26 14 L26 28"/>
+            <path d="M12 28 L12 21 L20 21 L20 28"/>
+            <path d="M8 18 L12 18 M20 18 L24 18"/>
+          </svg>
+        </div>
+        <div class="step-title">CRAFTSMANSHIP</div>
+        <p class="step-desc">Our artisans bring your vehicle back to life with precision and passion.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-circle">
+          <span class="step-num">5</span>
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M8 16 L13 21 L24 10"/>
+            <circle cx="16" cy="16" r="12"/>
+          </svg>
+        </div>
+        <div class="step-title">DELIVERY</div>
+        <p class="step-desc">Thorough quality check followed by a proud handover of your legend.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY TEASER -->
+<section class="gallery" id="gallery">
+  <div class="section-inner">
+    <div class="gallery-header reveal">
+      <div>
+        <div class="section-label">Our Work</div>
+        <h2 class="section-heading">BUILT TO<br>LAST FOREVER</h2>
+      </div>
+      <a href="#contact" class="btn-outline" style="flex-shrink:0">
+        View Full Portfolio →
+      </a>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="car-silhouette">
+          <svg viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg" width="80%">
+            <path d="M40 130 C40 130 60 90 100 80 C130 72 160 68 200 68 C240 68 280 76 310 90 C340 104 360 120 360 130 L360 145 L40 145 Z" stroke="#8B7ECC" stroke-width="1.5" fill="none"/>
+            <ellipse cx="110" cy="145" rx="28" ry="28" stroke="#3ECFA8" stroke-width="1.5" fill="none"/>
+            <ellipse cx="110" cy="145" rx="14" ry="14" stroke="#3ECFA8" stroke-width="1" fill="none"/>
+            <ellipse cx="290" cy="145" rx="28" ry="28" stroke="#3ECFA8" stroke-width="1.5" fill="none"/>
+            <ellipse cx="290" cy="145" rx="14" ry="14" stroke="#3ECFA8" stroke-width="1" fill="none"/>
+            <path d="M100 80 C110 65 140 55 180 53 C220 51 255 60 275 80" stroke="#8B7ECC" stroke-width="1" fill="none"/>
+            <path d="M35 130 L25 130 L25 135 L35 135" stroke="#8B7ECC" stroke-width="1"/>
+            <path d="M365 130 L375 130 L375 135 L365 135" stroke="#8B7ECC" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="gallery-item-inner">
+          <svg class="gallery-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="1" y="1" width="46" height="46" rx="2"/>
+            <circle cx="24" cy="24" r="12"/>
+            <path d="M18 24 L22 28 L30 20"/>
+          </svg>
+          <div class="gallery-item-label">Classic Restoration</div>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-title">FULL RESTORATION</div>
+          <div class="gallery-overlay-sub">Frame-Off · Paint · Interior</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="car-silhouette">
+          <svg viewBox="0 0 300 150" fill="none" width="80%">
+            <path d="M20 100 C20 100 40 65 80 58 C110 52 150 50 185 58 C215 65 250 85 265 100 L265 112 L20 112 Z" stroke="#8B7ECC" stroke-width="1.2" fill="none"/>
+            <ellipse cx="70" cy="112" rx="22" ry="22" stroke="#3ECFA8" stroke-width="1.2" fill="none"/>
+            <ellipse cx="215" cy="112" rx="22" ry="22" stroke="#3ECFA8" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <div class="gallery-item-inner">
+          <svg class="gallery-icon" width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="1" y="1" width="46" height="46" rx="2"/>
+            <path d="M24 8 L40 24 L24 40 L8 24 Z"/>
+          </svg>
+          <div class="gallery-item-label">Bespoke Paint</div>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-title">CUSTOM PAINT</div>
+          <div class="gallery-overlay-sub">Metallic · Pearl · Matte</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="car-silhouette">
+          <svg viewBox="0 0 300 150" fill="none" width="80%">
+            <path d="M30 100 C30 100 55 68 90 60 C115 54 155 52 185 60 C215 68 250 88 255 100 L255 112 L30 112 Z" stroke="#8B7ECC" stroke-width="1.2" fill="none"/>
+            <ellipse cx="80" cy="112" rx="22" ry="22" stroke="#3ECFA8" stroke-width="1.2" fill="none"/>
+            <ellipse cx="205" cy="112" rx="22" ry="22" stroke="#3ECFA8" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <div class="gallery-item-inner">
+          <svg class="gallery-icon" width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="1" y="1" width="46" height="46" rx="2"/>
+            <circle cx="24" cy="24" r="10"/>
+            <circle cx="24" cy="24" r="4"/>
+          </svg>
+          <div class="gallery-item-label">Wheel & Suspension</div>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-title">WHEELS & STANCE</div>
+          <div class="gallery-overlay-sub">Forged · Suspension · Alignment</div>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="car-silhouette">
+          <svg viewBox="0 0 300 150" fill="none" width="80%">
+            <path d="M25 100 C25 100 50 65 85 57 C115 50 160 48 190 57 C220 66 255 88 260 100 L260 112 L25 112 Z" stroke="#8B7ECC" stroke-width="1.2" fill="none"/>
+            <ellipse cx="75" cy="112" rx="22" ry="22" stroke="#3ECFA8" stroke-width="1.2" fill="none"/>
+            <ellipse cx="210" cy="112" rx="22" ry="22" stroke="#3ECFA8" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <div class="gallery-item-inner">
+          <svg class="gallery-icon" width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="1" y="1" width="46" height="46" rx="2"/>
+            <path d="M8 24 L18 14 L40 14 L40 34 L18 34 Z"/>
+            <line x1="18" y1="14" x2="18" y2="34"/>
+          </svg>
+          <div class="gallery-item-label">Interior Refinishing</div>
+        </div>
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-title">INTERIOR</div>
+          <div class="gallery-overlay-sub">Leather · Wood · Bespoke</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="section-inner">
+    <div class="why-grid">
+      <div class="reveal">
+        <div class="section-label">Why Choose Us</div>
+        <h2 class="section-heading">DRIVEN BY<br>EXCELLENCE</h2>
+        <div class="why-items" style="margin-top:40px">
+          <div class="why-item">
+            <div class="why-num">01</div>
+            <div class="why-content">
+              <h4>MASTER CRAFTSMEN</h4>
+              <p>Our team has decades of combined experience specifically in luxury and classic vehicle restoration. We speak the language of rare cars fluently.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">02</div>
+            <div class="why-content">
+              <h4>AUTHENTIC PARTS</h4>
+              <p>We source only genuine OEM or period-correct parts — no compromises. Your car deserves nothing but the real thing.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">03</div>
+            <div class="why-content">
+              <h4>TRANSPARENT PROCESS</h4>
+              <p>Full documentation, progress updates, and photo logs throughout. You'll always know exactly where your vehicle stands.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">04</div>
+            <div class="why-content">
+              <h4>CONCOURS STANDARD</h4>
+              <p>We hold every job to competition-level standards. Whether it's a daily driver or a show car, our finish is uncompromising.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="why-visual reveal">
+        <div class="why-visual-main">
+          <div class="certbadge">KERALA'S FINEST</div>
+          <svg viewBox="0 0 200 200" fill="none" width="160" opacity="0.4">
+            <circle cx="100" cy="100" r="90" stroke="#8B7ECC" stroke-width="1.5"/>
+            <circle cx="100" cy="100" r="70" stroke="#8B7ECC" stroke-width="1" stroke-dasharray="4 4"/>
+            <ellipse cx="100" cy="100" rx="60" ry="28" stroke="#3ECFA8" stroke-width="1.2"/>
+            <circle cx="100" cy="100" r="24" stroke="#3ECFA8" stroke-width="1.5"/>
+            <circle cx="100" cy="100" r="10" fill="#3ECFA8"/>
+            <line x1="100" y1="10" x2="100" y2="30" stroke="#8B7ECC" stroke-width="1.2"/>
+            <line x1="100" y1="170" x2="100" y2="190" stroke="#8B7ECC" stroke-width="1.2"/>
+            <line x1="10" y1="100" x2="30" y2="100" stroke="#8B7ECC" stroke-width="1.2"/>
+            <line x1="170" y1="100" x2="190" y2="100" stroke="#8B7ECC" stroke-width="1.2"/>
+            <path d="M100 50 L108 74 L134 74 L114 90 L122 114 L100 98 L78 114 L86 90 L66 74 L92 74 Z" stroke="#C8A96E" stroke-width="1" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-inner">
+    <div class="testimonials-header reveal">
+      <div class="section-label">Testimonials</div>
+      <h2 class="section-heading">VOICES OF<br>OUR CLIENTS</h2>
+    </div>
+    <div class="testimonials-grid reveal">
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">The Retrospect Studio transformed my 1968 Mustang into something absolutely stunning. Their attention to every tiny detail was extraordinary. It runs and looks better than new.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">AR</div>
+          <div>
+            <div class="author-name">Arun Rajesh</div>
+            <div class="author-detail">Collector, Kochi</div>
+            <div class="testimonial-car">1968 Ford Mustang</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">I brought my Mercedes S-Class for a complete interior overhaul. The craftsmanship, the leather work, the woodgrain panels — it's now a rolling masterpiece. Worth every rupee.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SK</div>
+          <div>
+            <div class="author-name">Suresh Kumar</div>
+            <div class="author-detail">Entrepreneur, Thrissur</div>
+            <div class="testimonial-car">Mercedes-Benz S-Class</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">From consultation to delivery, every single step was professional. They found parts for my vintage Ambassador that I couldn't locate anywhere else. Truly remarkable service.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">PM</div>
+          <div>
+            <div class="author-name">Priya Menon</div>
+            <div class="author-detail">Heritage Enthusiast, Thrissur</div>
+            <div class="testimonial-car">Hindustan Ambassador</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="brands">
+  <div class="section-inner">
+    <div class="brands-label reveal">Vehicles We Specialize In</div>
+    <div class="brands-grid reveal">
+      <div class="brand-item">MERCEDES</div>
+      <div class="brand-item">BMW</div>
+      <div class="brand-item">AUDI</div>
+      <div class="brand-item">JAGUAR</div>
+      <div class="brand-item">PORSCHE</div>
+      <div class="brand-item">FERRARI</div>
+      <div class="brand-item">LAND ROVER</div>
+      <div class="brand-item">VINTAGE</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="cta-banner-eyebrow">Ready to Begin?</div>
+  <h2 class="cta-banner-title">REVIVE YOUR<br><span class="accent">LEGEND</span></h2>
+  <p class="cta-banner-sub">Every great car has a story. Let us help you write the next chapter.</p>
+  <div class="btns">
+    <a href="#contact" class="btn-primary">Book a Consultation</a>
+    <a href="tel:+91" class="btn-outline">Call Us</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="section-label">Get in Touch</div>
+        <h2 class="section-heading">LET'S<br>TALK</h2>
+        <p class="section-sub" style="margin-bottom:48px;">Visit our studio in Thrissur or reach out — we'd love to hear about your car and your vision.</p>
+        <div class="contact-detail">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-detail-label">Location</div>
+            <div class="contact-detail-value">The Retrospect Studio<br>Thrissur, Kerala, India</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.6 4.38 2 2 0 0 1 3.58 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="contact-detail-label">Phone</div>
+            <div class="contact-detail-value">+91 XXXXX XXXXX</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-value">hello@theretrospect.studio</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="contact-detail-label">Working Hours</div>
+            <div class="contact-detail-value">Mon – Sat: 9:00 AM – 7:00 PM<br>Sunday: By Appointment</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Your first name">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Your last name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="+91 XXXXX XXXXX">
+        </div>
+        <div class="form-group">
+          <label>Vehicle Details</label>
+          <input type="text" placeholder="Year, Make, Model (e.g. 1965 Ford Mustang)">
+        </div>
+        <div class="form-group">
+          <label>Service Required</label>
+          <select>
+            <option value="" disabled selected>Select a service</option>
+            <option>Restoration</option>
+            <option>Customization</option>
+            <option>Modification</option>
+            <option>Servicing & Maintenance</option>
+            <option>Spare Parts</option>
+            <option>Detailing</option>
+            <option>Multiple Services</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell Us About Your Vision</label>
+          <textarea placeholder="Describe what you'd like done with your vehicle..."></textarea>
+        </div>
+        <button class="form-submit" type="button" onclick="handleSubmit(this)">Send Enquiry →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <svg width="36" height="36" viewBox="0 0 60 60" fill="none">
+            <circle cx="30" cy="30" r="26" stroke="#8B7ECC" stroke-width="1"/>
+            <ellipse cx="30" cy="30" rx="22" ry="10" stroke="#8B7ECC" stroke-width="1"/>
+            <circle cx="30" cy="30" r="8" stroke="#3ECFA8" stroke-width="1"/>
+            <circle cx="30" cy="30" r="3" fill="#3ECFA8"/>
+            <line x1="30" y1="4" x2="30" y2="10" stroke="#8B7ECC" stroke-width="1"/>
+            <line x1="30" y1="50" x2="30" y2="56" stroke="#8B7ECC" stroke-width="1"/>
+          </svg>
+          <div>
+            <div style="font-family:var(--font-display);font-size:18px;letter-spacing:0.1em;color:var(--white)">RETROSPECT</div>
+            <div style="font-size:8px;letter-spacing:0.3em;color:var(--purple-light);text-transform:uppercase;font-weight:500">Studio</div>
+          </div>
+        </div>
+        <p class="footer-tagline">Where legends return to life. Kerala's premier luxury car restoration & customization studio, based in Thrissur.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">Restoration</a></li>
+          <li><a href="#services">Customization</a></li>
+          <li><a href="#services">Modification</a></li>
+          <li><a href="#services">Servicing</a></li>
+          <li><a href="#services">Spare Parts</a></li>
+          <li><a href="#services">Detailing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Studio</h5>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#process">Our Process</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 The Retrospect Studio. All rights reserved. Thrissur, Kerala.</div>
+      <div class="footer-social">
+        <a href="#" title="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" title="Facebook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" title="YouTube">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .service-card, .gallery-item, .why-item, .testimonial-card, input, select, textarea').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+  el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+});
+
+// Nav scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) navbar.classList.add('scrolled');
+  else navbar.classList.remove('scrolled');
+});
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+
+// Form submit
+function handleSubmit(btn) {
+  const orig = btn.textContent;
+  btn.textContent = 'Sending...';
+  btn.style.background = 'var(--purple)';
+  setTimeout(() => {
+    btn.textContent = '✓ Enquiry Sent!';
+    btn.style.background = 'var(--mint)';
+    btn.style.color = 'var(--black)';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.background = 'var(--purple)';
+      btn.style.color = 'var(--white)';
+    }, 3000);
+  }, 1500);
+}
+</script>
+</body>
+</html>
